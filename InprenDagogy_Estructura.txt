@@ -1,0 +1,7 @@
+InprenDagogy/
+├── index.html
+├── Portada_web.png
+├── InprenDagogy_Logo2.png
+├── blank-composition-desk-display-317355.jpg
+├── information-sign-on-paper-317356.jpg
+└── Kirkpartricks_Model.jpg
