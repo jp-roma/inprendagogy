@@ -280,50 +280,86 @@
     </div>
     <div class="form-wrap">
       <h3>Escríbenos, estamos para ayudarte</h3>
-      <form action="https://formsubmit.co/jprom@outlook.com" method="POST">
-        <input type="hidden" name="_subject" value="Nuevo contacto desde InprenDagogy" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_next" value="https://jp-roma.github.io/inprendagogy/" />
-        <div class="form-row">
-          <div class="form-group">
-            <label>Nombre</label>
-            <input type="text" name="nombre" placeholder="Tu nombre" required />
-          </div>
-          <div class="form-group">
-            <label>Apellido</label>
-            <input type="text" name="apellido" placeholder="Tu apellido" required />
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Correo electrónico</label>
-          <input type="email" name="email" placeholder="tu@empresa.com" required />
-        </div>
-        <div class="form-group">
-          <label>Empresa / Organización</label>
-          <input type="text" name="empresa" placeholder="Nombre de tu empresa" />
-        </div>
-        <div class="form-group">
-          <label>Área de interés</label>
-          <select name="area_interes">
-            <option value="">Selecciona una opción</option>
-            <option>Análisis de Datos / Learning Analytics</option>
-            <option>Diseño de Programas de Formación</option>
-            <option>Evaluación del Impacto Formativo (Kirkpatrick)</option>
-            <option>E-Learning y Plataformas LMS</option>
-            <option>Consultoría Estratégica</option>
-            <option>Otro</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>¿Cómo podemos ayudarte?</label>
-          <textarea name="mensaje" placeholder="Cuéntanos sobre tu proyecto o desafío..."></textarea>
-        </div>
-        <button type="submit" class="btn-submit">Enviar mensaje →</button>
-        <p class="form-note">Tu información es confidencial. No compartimos tus datos con terceros.</p>
-      </form>
+      <form id="contact-form">
+  <input type="hidden" name="_subject" value="Nuevo contacto desde InprenDagogy" />
+  <input type="hidden" name="_captcha" value="false" />
+  <input type="hidden" name="_template" value="table" />
+
+  <div class="form-row">
+    <div class="form-group">
+      <label>Nombre</label>
+      <input type="text" name="nombre" placeholder="Tu nombre" required />
+    </div>
+    <div class="form-group">
+      <label>Apellido</label>
+      <input type="text" name="apellido" placeholder="Tu apellido" required />
     </div>
   </div>
+
+  <div class="form-group">
+    <label>Correo electrónico</label>
+    <input type="email" name="email" placeholder="tu@empresa.com" required />
+  </div>
+
+  <div class="form-group">
+    <label>Empresa / Organización</label>
+    <input type="text" name="empresa" placeholder="Nombre de tu empresa" />
+  </div>
+
+  <div class="form-group">
+    <label>Área de interés</label>
+    <select name="area_interes">
+      <option value="">Selecciona una opción</option>
+      <option>Análisis de Datos / Learning Analytics</option>
+      <option>Diseño de Programas de Formación</option>
+      <option>Evaluación del Impacto Formativo (Kirkpatrick)</option>
+      <option>E-Learning y Plataformas LMS</option>
+      <option>Consultoría Estratégica</option>
+      <option>Otro</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>¿Cómo podemos ayudarte?</label>
+    <textarea name="mensaje" placeholder="Cuéntanos sobre tu proyecto o desafío..."></textarea>
+  </div>
+
+  <button type="submit" class="btn-submit" id="submit-btn">Enviar mensaje →</button>
+  <p class="form-note" id="form-msg"></p>
+</form>
+
+<script>
+  document.getElementById('contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const btn = document.getElementById('submit-btn');
+    const msg = document.getElementById('form-msg');
+
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    const formData = new FormData(this);
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/jprom@outlook.com', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      });
+
+      if (response.ok) {
+        window.location.href = 'https://jp-roma.github.io/inprendagogy/';
+      } else {
+        throw new Error('Error en el envío');
+      }
+    } catch (error) {
+      btn.textContent = 'Enviar mensaje →';
+      btn.disabled = false;
+      msg.style.color = '#F04E37';
+      msg.textContent = 'Hubo un error al enviar. Por favor intenta nuevamente.';
+    }
+  });
+</script>
 </section>
 
 <!-- FOOTER -->
@@ -345,6 +381,7 @@
 
 </body>
 </html>
+
 
 
 
